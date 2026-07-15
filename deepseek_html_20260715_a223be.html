@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> بوابة الدعم الفني الداخلية </title>
+    <!-- Font Awesome 6 (مجاني) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            overflow: hidden;
+            padding: 24px 28px 32px;
+        }
+
+        /* header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9edf4;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            background: #1a5cff;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 22px;
+            color: #0b1b3a;
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #f0f4fe;
+            padding: 8px 18px 8px 14px;
+            border-radius: 40px;
+        }
+
+        .user-avatar {
+            background: #1a5cff;
+            color: white;
+            width: 38px;
+            height: 38px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .user-info {
+            font-weight: 500;
+            color: #0b1b3a;
+        }
+
+        .user-role {
+            font-size: 13px;
+            color: #4a5b7a;
+            font-weight: 400;
+        }
+
+        /* tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin: 24px 0 18px;
+            border-bottom: 1px solid #e9edf4;
+            padding-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 10px 24px;
+            border-radius: 40px;
+            border: none;
+            background: transparent;
+            font-weight: 600;
+            font-size: 15px;
+            color: #4a5b7a;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn i {
+            font-size: 16px;
+        }
+
+        .tab-btn.active {
+            background: #1a5cff;
+            color: white;
+            box-shadow: 0 6px 14px rgba(26,92,255,0.25);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #eef3fc;
+        }
+
+        /* content panels */
+        .panel {
+            display: none;
+            animation: fade 0.25s ease;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            0% { opacity: 0.4; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* كروت الإحصائيات */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: #f9fbfe;
+            padding: 18px 20px;
+            border-radius: 20px;
+            border: 1px solid #eef2f8;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0b1b3a;
+        }
+
+        .stat-label {
+            color: #5a6e8a;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .stat-icon {
+            float: left;
+            color: #1a5cff;
+            font-size: 24px;
+            opacity: 0.6;
+        }
+
+        /* جدول التذاكر */
+        .table-wrapper {
+            background: #f9fbfe;
+            border-radius: 24px;
+            padding: 6px 0 10px;
+            border: 1px solid #eef2f8;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            text-align: right;
+            padding: 16px 18px;
+            color: #3a4b66;
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid #eef2f8;
+            color: #1c2a44;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-open { background: #ffeed9; color: #b45a1c; }
+        .status-progress { background: #d9e6ff; color: #1a5cff; }
+        .status-resolved { background: #d4f0e0; color: #0f7b4a; }
+        .status-closed { background: #e9ecf2; color: #4a5b7a; }
+        .status-pending { background: #fff1d6; color: #b45a1c; }
+        .status-approval { background: #e9d9ff; color: #6f42c1; }
+
+        .priority-p1 { color: #c72a2a; font-weight: 700; }
+        .priority-p2 { color: #d97a1e; font-weight: 600; }
+        .priority-p3 { color: #2a6b9e; font-weight: 500; }
+        .priority-p4 { color: #5b6f8b; }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #d0d9e6;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #1c2a44;
+            cursor: default;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-sm {
+            background: white;
+            border: 1px solid #d0d9e6;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            cursor: default;
+        }
+
+        .ticket-actions i {
+            margin: 0 4px;
+            color: #5a6e8a;
+            font-size: 15px;
+        }
+
+        /* نموذج إنشاء تذكرة */
+        .create-ticket-card {
+            background: #f9fbfe;
+            border: 1px solid #eef2f8;
+            border-radius: 24px;
+            padding: 24px 28px;
+            margin: 16px 0 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: #1c2a44;
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d6dfeb;
+            border-radius: 16px;
+            background: white;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .btn-primary {
+            background: #1a5cff;
+            border: none;
+            color: white;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: #0f4ad0;
+            box-shadow: 0 6px 14px rgba(26,92,255,0.3);
+        }
+
+        /* موافقات المدير */
+        .approval-row {
+            background: #f5f8ff;
+            border-radius: 16px;
+            padding: 14px 18px;
+            margin-bottom: 10px;
+            border-right: 6px solid #1a5cff;
+        }
+
+        .flex-space {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #e9ecf2;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 12px;
+            color: #2a3b56;
+        }
+
+        .mt-3 { margin-top: 16px; }
+        .mb-2 { margin-bottom: 10px; }
+        .text-muted { color: #5a6e8a; font-size: 14px; }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            .container { padding: 16px; }
+            .header { flex-direction: column; align-items: start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- header -->
+    <div class="header">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-headset"></i></div>
+            <span class="logo-text">دعم تك</span>
+            <span style="background:#eef3fc; padding:2px 14px; border-radius:30px; font-size:13px; color:#1a5cff;">v2.0</span>
+        </div>
+        <div class="user-badge">
+            <div class="user-avatar"><i class="fas fa-user"></i></div>
+            <div class="user-info">
+                <div>أحمد السعدي</div>
+                <div class="user-role"><i class="fas fa-id-badge"></i> موظف / IT</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- tabs (employee / IT) -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="employee"><i class="fas fa-user-circle"></i> واجهة الموظف</button>
+        <button class="tab-btn" data-tab="it"><i class="fas fa-laptop-code"></i> واجهة فريق IT</button>
+        <button class="tab-btn" data-tab="admin"><i class="fas fa-user-shield"></i> إدارة الصلاحيات</button>
+    </div>
+
+    <!-- ============= PANEL: EMPLOYEE ============= -->
+    <div id="employee" class="panel active">
+        <!-- بطاقة الموظف + صلاحيات -->
+        <div style="background:#f0f6ff; border-radius:20px; padding:14px 20px; margin-bottom:20px; display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+            <i class="fas fa-check-circle" style="color:#1a5cff; font-size:20px;"></i>
+            <span style="font-weight:500;">صلاحياتك كموظف: </span>
+            <span class="tag"><i class="far fa-plus-circle"></i> إنشاء تذكرة</span>
+            <span class="tag"><i class="far fa-eye"></i> عرض تذاكري</span>
+            <span class="tag"><i class="fas fa-comment"></i> إضافة تعليق</span>
+            <span class="tag"><i class="fas fa-paperclip"></i> مرفقات</span>
+            <span class="tag"><i class="fas fa-check"></i> تأكيد الإغلاق</span>
+            <span class="tag"><i class="fas fa-redo"></i> إعادة فتح</span>
+            <span class="tag"><i class="fas fa-star"></i> تقييم الخدمة</span>
+        </div>
+
+        <!-- إنشاء تذكرة (نموذج) -->
+        <div class="create-ticket-card">
+            <h4 style="margin-bottom:12px;"><i class="fas fa-pen-alt" style="color:#1a5cff;"></i> تقديم تذكرة جديدة</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>الفئة <i class="fas fa-tag" style="color:#5a6e8a;"></i></label>
+                    <select>
+                        <option>الحسابات والوصول</option>
+                        <option>الأجهزة</option>
+                        <option>الشبكة والإنترنت</option>
+                        <option>البريد الإلكتروني</option>
+                        <option>البرامج</option>
+                        <option>الأمن</option>
+                        <option>الطابعات</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>نوع الطلب</label>
+                    <select>
+                        <option>نسيت كلمة المرور</option>
+                        <option>جهاز لا يعمل</option>
+                        <option>طلب جهاز جديد</option>
+                        <option>مشكلة في تسجيل الدخول</option>
+                        <option>إبطاء في الجهاز</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>الأولوية</label>
+                    <select>
+                        <option value="P1">عاجل (P1)</option>
+                        <option value="P2">مرتفع (P2)</option>
+                        <option value="P3" selected>متوسط (P3)</option>
+                        <option value="P4">منخفض (P4)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>الموضوع</label>
+                <input type="text" placeholder="مثال: لا أستطيع تسجيل الدخول إلى نظام الموارد البشرية" value="طلب جهاز جديد للموظف الجديد">
+            </div>
+            <div class="form-group">
+                <label>الوصف</label>
+                <textarea>الموظف الجديد يبدأ الأسبوع القادم، يحتاج جهاز محمول مع شاشة خارجية.</textarea>
+            </div>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+                <button class="btn-primary"><i class="fas fa-paper-plane"></i> إرسال التذكرة</button>
+                <span class="btn-outline"><i class="fas fa-paperclip"></i> إرفاق ملف</span>
+            </div>
+        </div>
+
+        <!-- تذاكري (قائمة) -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin:12px 0 8px;">
+            <h4><i class="fas fa-ticket-alt" style="color:#1a5cff;"></i> تذاكري</h4>
+            <span class="text-muted"><i class="fas fa-sync-alt"></i> آخر تحديث: اليوم</span>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>#</th><th>الموضوع</th><th>الفئة</th><th>الأولوية</th><th>الحالة</th><th>تاريخ</th><th>إجراءات</th></tr></thead>
+                <tbody>
+                    <tr><td>IT-1024</td><td>طلب جهاز جديد للموظف الجديد</td><td>الأجهزة</td><td class="priority-p3">P3</td><td><span class="status-badge status-open">مفتوحة</span></td><td>2026-07-14</td><td class="ticket-actions"><i class="fas fa-comment" title="تعليق"></i> <i class="fas fa-paperclip" title="مرفق"></i> <i class="fas fa-flag" title="رفع"></i></td></tr>
+                    <tr><td>IT-1018</td><td>لا يمكن الوصول إلى البوابة المالية</td><td>الحسابات والوصول</td><td class="priority-p2">P2</td><td><span class="status-badge status-progress">قيد المعالجة</span></td><td>2026-07-13</td><td class="ticket-actions"><i class="fas fa-comment"></i> <i class="fas fa-history"></i></td></tr>
+                    <tr><td>IT-1003</td><td>الشاشة الخارجية لا تعمل</td><td>الأجهزة</td><td class="priority-p3">P3</td><td><span class="status-badge status-resolved">تم الحل</span></td><td>2026-07-12</td><td class="ticket-actions"><i class="fas fa-check-circle" style="color:#0f7b4a;"></i> <i class="fas fa-star"></i></td></tr>
+                    <tr><td>IT-0995</td><td>طلب تثبيت برنامج SPSS</td><td>البرامج</td><td class="priority-p4">P4</td><td><span class="status-badge status-closed">مغلقة</span></td><td>2026-07-10</td><td class="ticket-actions"><i class="fas fa-redo"></i> <i class="fas fa-star"></i></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- الموافقات (مدير) -->
+        <div style="margin-top:28px; background:#f5f9ff; border-radius:20px; padding:16px 20px; border:1px solid #dce5f2;">
+            <h5 style="display:flex; gap:12px;"><i class="fas fa-check-double" style="color:#6f42c1;"></i> طلبات الموافقة (مدير) </h5>
+            <div class="approval-row">
+                <div class="flex-space">
+                    <div><span class="tag" style="background:#6f42c1; color:white;">موافقة مطلوبة</span> <strong>طلب جهاز جديد</strong> – الموظف: سارة الأحمد</div>
+                    <div><button class="btn-primary" style="padding:4px 18px; font-size:13px;">موافقة</button> <button class="btn-outline" style="padding:4px 14px;">رفض</button></div>
+                </div>
+                <div class="text-muted" style="font-size:13px;">الفئة: الأجهزة  |  الأولوية: P2  |  تاريخ: 2026-07-15</div>
+            </div>
+            <div class="approval-row">
+                <div class="flex-space">
+                    <div><span class="tag" style="background:#6f42c1; color:white;">موافقة مطلوبة</span> <strong>طلب وصول إلى نظام ERP</strong> – الموظف: خالد المنصور</div>
+                    <div><button class="btn-primary" style="padding:4px 18px; font-size:13px;">موافقة</button> <button class="btn-outline" style="padding:4px 14px;">رفض</button></div>
+                </div>
+                <div class="text-muted" style="font-size:13px;">الفئة: الحسابات والوصول  |  الأولوية: P1  |  تاريخ: 2026-07-15</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============= PANEL: IT ============= -->
+    <div id="it" class="panel">
+        <!-- صلاحيات فريق IT -->
+        <div style="background:#e6f0ff; border-radius:20px; padding:12px 20px; margin-bottom:20px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+            <i class="fas fa-tools" style="color:#1a5cff;"></i>
+            <span style="font-weight:500;">صلاحيات فريق الدعم: </span>
+            <span class="tag">عرض جميع التذاكر</span>
+            <span class="tag">تحديث الحالة</span>
+            <span class="tag">تعيين لنفسك</span>
+            <span class="tag">تعليق داخلي</span>
+            <span class="tag">تغيير الأولوية</span>
+            <span class="tag">رفع إلى Admin</span>
+            <span class="tag">إغلاق التذكرة</span>
+        </div>
+
+        <!-- لوحة تحكم IT -->
+        <div class="stats-grid">
+            <div class="stat-card"><span class="stat-icon"><i class="fas fa-inbox"></i></span><div class="stat-number">14</div><div class="stat-label">تذاكر مفتوحة</div></div>
+            <div class="stat-card"><span class="stat-icon"><i class="fas fa-clock"></i></span><div class="stat-number">3</div><div class="stat-label">متأخرة عن الموعد</div></div>
+            <div class="stat-card"><span class="stat-icon"><i class="fas fa-chart-pie"></i></span><div class="stat-number">P1:2 | P2:5</div><div class="stat-label">توزيع الأولويات</div></div>
+            <div class="stat-card"><span class="stat-icon"><i class="fas fa-user-cog"></i></span><div class="stat-number">6</div><div class="stat-label">تذاكر بانتظار التوزيع</div></div>
+        </div>
+
+        <!-- قائمة التذاكر (IT) -->
+        <h4><i class="fas fa-list-ul" style="color:#1a5cff;"></i> قائمة التذاكر (جميع)</h4>
+        <div class="table-wrapper">
+            <table>
+                <thead><tr><th>#</th><th>الموضوع</th><th>الفئة</th><th>الأولوية</th><th>الحالة</th><th>المسند إلى</th><th>إجراءات</th></tr></thead>
+                <tbody>
+                    <tr><td>IT-1024</td><td>طلب جهاز جديد للموظف الجديد</td><td>الأجهزة</td><td class="priority-p3">P3</td><td><span class="status-badge status-open">مفتوحة</span></td><td>—</td><td><span class="btn-sm"><i class="fas fa-user-check"></i> تعيين</span> <span class="btn-sm"><i class="fas fa-pen"></i> تحديث</span></td></tr>
+                    <tr><td>IT-1020</td><td>جهاز الرئيس التنفيذي لا يعمل</td><td>الأجهزة</td><td class="priority-p1">P1</td><td><span class="status-badge status-progress">قيد المعالجة</span></td><td>أحمد الفهد</td><td><span class="btn-sm"><i class="fas fa-redo"></i> إعادة تعيين</span> <span class="btn-sm"><i class="fas fa-comment"></i></span></td></tr>
+                    <tr><td>IT-1015</td><td>طلب رفع حجب موقع حكومي</td><td>المواقع المحجوبة</td><td class="priority-p2">P2</td><td><span class="status-badge status-approval">موافقة</span></td><td>—</td><td><span class="btn-sm"><i class="fas fa-check"></i> موافقة</span></td></tr>
+                    <tr><td>IT-1009</td><td>فيروس محتمل في جهاز المستخدم</td><td>الأمن</td><td class="priority-p1">P1</td><td><span class="status-badge status-pending">انتظار</span></td><td>فريق الأمن</td><td><span class="btn-sm"><i class="fas fa-shield-alt"></i> تصعيد</span></td></tr>
+                    <tr><td>IT-0998</td><td>تثبيت برنامج مايكروسوفت أوفيس</td><td>البرامج</td><td class="priority-p3">P3</td><td><span class="status-badge status-resolved">تم الحل</span></td><td>نورة السعد</td><td><span class="btn-sm"><i class="fas fa-check-circle"></i> مراجعة</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- تفاصيل تذكرة نموذجية (IT) -->
+        <div style="margin-top:24px; background:#fafcff; border-radius:20px; border:1px solid #e2eaf5; padding:16px 22px;">
+            <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between;">
+                <div><strong><i class="fas fa-info-circle"></i> تفاصيل التذكرة #IT-1020</strong> <span class="tag" style="background:#c72a2a20; color:#c72a2a;">P1 عاجل</span></div>
+                <div><span class="tag">جهاز الرئيس التنفيذي لا يعمل</span> <span class="tag">الأجهزة</span></div>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-top:12px; font-size:14px;">
+                <div><i class="fas fa-user"></i> المبلغ: خالد السيف</div>
+                <div><i class="fas fa-calendar"></i> تاريخ: 2026-07-15 09:30</div>
+                <div><i class="fas fa-user-tie"></i> المسند إلى: أحمد الفهد</div>
+                <div><span class="status-badge status-progress">قيد المعالجة</span></div>
+            </div>
+            <div style="background:#eef4fa; border-radius:14px; padding:12px; margin-top:12px;">
+                <i class="fas fa-comment" style="color:#1a5cff;"></i> <strong>ملاحظة داخلية:</strong> تم التواصل مع الرئيس التنفيذي، سيتم توفير جهاز بديل مؤقت.
+            </div>
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                <button class="btn-primary" style="padding:6px 20px; font-size:13px;"><i class="fas fa-user-check"></i> تعيين لنفسي</button>
+                <button class="btn-primary" style="padding:6px 20px; font-size:13px; background:#2b4b7a;"><i class="fas fa-pen"></i> تحديث الحالة</button>
+                <span class="btn-outline"><i class="fas fa-paperclip"></i> إرفاق</span>
+                <span class="btn-outline" style="border-color:#c72a2a; color:#c72a2a;"><i class="fas fa-exclamation-triangle"></i> تصعيد</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============= PANEL: ADMIN (إدارة الصلاحيات) ============= -->
+    <div id="admin" class="panel">
+        <div style="background:#eef4fa; border-radius:20px; padding:16px 22px; margin-bottom:20px;">
+            <h5><i class="fas fa-user-shield" style="color:#1a5cff;"></i> إدارة الصلاحيات والأدوار</h5>
+            <p class="text-muted">عرض الأدوار: الموظف، فني IT، مدير، فريق الأمن، مدير النظام</p>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:14px;">
+            <div style="background:white; border:1px solid #dfe8f2; border-radius:20px; padding:14px;">
+                <i class="fas fa-user" style="color:#1a5cff; font-size:22px;"></i>
+                <h6>موظف</h6>
+                <ul style="font-size:13px; list-style:none; padding-right:0; color:#2a3b56;">
+                    <li>✔ إنشاء تذكرة</li><li>✔ عرض تذاكري</li><li>✔ تعليق / مرفقات</li><li>✔ إغلاق / إعادة فتح</li>
+                </ul>
+            </div>
+            <div style="background:white; border:1px solid #dfe8f2; border-radius:20px; padding:14px;">
+                <i class="fas fa-user-cog" style="color:#1a5cff; font-size:22px;"></i>
+                <h6>فني IT</h6>
+                <ul style="font-size:13px; list-style:none; padding-right:0;">
+                    <li>✔ عرض جميع التذاكر</li><li>✔ تحديث الحالة</li><li>✔ تعيين لنفسه</li><li>✔ تعليق داخلي</li>
+                </ul>
+            </div>
+            <div style="background:white; border:1px solid #dfe8f2; border-radius:20px; padding:14px;">
+                <i class="fas fa-user-tie" style="color:#6f42c1; font-size:22px;"></i>
+                <h6>مدير</h6>
+                <ul style="font-size:13px; list-style:none; padding-right:0;">
+                    <li>✔ عرض تذاكر الفريق</li><li>✔ موافقة على الطلبات</li><li>✔ تغيير الأولوية</li><li>✔ تصعيد</li>
+                </ul>
+            </div>
+            <div style="background:white; border:1px solid #dfe8f2; border-radius:20px; padding:14px;">
+                <i class="fas fa-shield-alt" style="color:#c72a2a; font-size:22px;"></i>
+                <h6>فريق الأمن</h6>
+                <ul style="font-size:13px; list-style:none; padding-right:0;">
+                    <li>✔ عرض تذاكر الأمن</li><li>✔ تحديث أمني</li><li>✔ تعطيل حساب</li><li>✔ إخطار الإدارة</li>
+                </ul>
+            </div>
+            <div style="background:white; border:1px solid #dfe8f2; border-radius:20px; padding:14px; border-color:#1a5cff;">
+                <i class="fas fa-user-shield" style="color:#0b1b3a; font-size:22px;"></i>
+                <h6>مدير النظام (Admin)</h6>
+                <ul style="font-size:13px; list-style:none; padding-right:0;">
+                    <li>✔ صلاحيات كاملة</li><li>✔ إدارة الفئات</li><li>✔ تقارير متقدمة</li><li>✔ سجل التدقيق</li>
+                </ul>
+            </div>
+        </div>
+        <!-- إدارة الفئات -->
+        <div style="margin-top:24px; background:#f9fbfe; border-radius:20px; border:1px solid #e2eaf5; padding:16px 20px;">
+            <h6><i class="fas fa-list" style="color:#1a5cff;"></i> إدارة الفئات وأنواع الطلبات</h6>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;">
+                <span class="tag" style="background:#d9e6ff;">الحسابات والوصول</span>
+                <span class="tag" style="background:#d9e6ff;">الأجهزة</span>
+                <span class="tag" style="background:#d9e6ff;">الشبكة</span>
+                <span class="tag" style="background:#d9e6ff;">البريد الإلكتروني</span>
+                <span class="tag" style="background:#d9e6ff;">البرامج</span>
+                <span class="tag" style="background:#d9e6ff;">الأمن</span>
+                <span class="tag" style="background:#d9e6ff;">الطابعات</span>
+                <span class="tag" style="background:#d9e6ff;">المواقع المحجوبة</span>
+                <span class="btn-outline" style="border-style:dashed;"><i class="fas fa-plus"></i> إضافة فئة</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div style="border-top:1px solid #e9edf4; margin-top:28px; padding-top:16px; display:flex; justify-content:space-between; font-size:13px; color:#5a6e8a; flex-wrap:wrap;">
+        <span>© 2026 بوابة الدعم الفني الداخلية – تصميم متكامل للموظفين وفريق IT</span>
+        <span><i class="fas fa-chevron-left"></i>  عرض توضيحي للنموذج الأولي <i class="fas fa-chevron-right"></i></span>
